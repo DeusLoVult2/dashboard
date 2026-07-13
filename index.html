@@ -71,12 +71,41 @@
             background: rgba(10, 8, 6, 0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(107, 90, 69, 0.2); transition: all 0.4s ease;
         }
         header.scrolled { padding: 8px 30px; background: rgba(10, 8, 6, 0.96); }
-        nav { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+        
+        /* Navigasi Diubah agar berpisah di kiri dan kanan */
+        nav { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        
         .nav-logo {
             font-family: 'Cinzel', serif; font-weight: 700; font-size: 22px; color: #c9a96e; text-decoration: none; letter-spacing: 3px; text-shadow: 0 0 10px rgba(201, 169, 110, 0.3); display: flex; align-items: center; gap: 8px;
         }
         .nav-logo i { font-size: 18px; animation: floatSlow 4s ease-in-out infinite; }
         .nav-logo span { color: #d4c5a9; font-weight: 400; }
+
+        /* Desain Tombol Login di Pojok Kanan Atas */
+        .nav-login-btn {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #d4c5a9;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: 1px solid rgba(201, 169, 110, 0.4);
+            padding: 8px 18px;
+            border-radius: 6px;
+            background: rgba(20, 16, 12, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .nav-login-btn i { color: #c9a96e; font-size: 14px; transition: transform 0.3s; }
+        .nav-login-btn:hover {
+            background: rgba(201, 169, 110, 0.15);
+            border-color: #c9a96e;
+            box-shadow: 0 0 15px rgba(201, 169, 110, 0.2);
+            color: #fff;
+        }
+        .nav-login-btn:hover i { transform: scale(1.1); }
 
         /* ===== SECTIONS ===== */
         section { position: relative; z-index: 1; padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
@@ -144,6 +173,10 @@
             .hero-name { font-size: clamp(32px, 8vw, 48px); }
             .section-title { font-size: 28px; }
             .portals-grid { grid-template-columns: 1fr; max-width: 400px; margin: 40px auto 0; }
+            
+            /* Penyesuaian tombol login di layar HP */
+            .nav-login-btn { padding: 6px 12px; font-size: 10px; }
+            .nav-login-btn span { display: none; /* Sembunyikan teks di HP agar tidak sempit */ }
         }
     </style>
 </head>
@@ -157,6 +190,10 @@
         <nav>
             <a href="#hero" class="nav-logo">
                 <i class="fas fa-compass"></i> Grand<span>Nexus</span>
+            </a>
+            <!-- Tombol Login dipindah ke sini -->
+            <a href="login.html" class="nav-login-btn">
+                <i class="fas fa-shield-halved"></i> <span>The Sanctum</span>
             </a>
         </nav>
     </header>
@@ -185,7 +222,6 @@
         <div class="portals-grid">
 
             <!-- Portal 1: CV -->
-            <!-- TRIK OPTIMASI: Tambahkan rel="prefetch" agar browser mendownload web CV diam-diam saat tombol di-hover -->
             <a href="https://cv.tsanihmmm.my.id" class="portal-card" rel="prefetch">
                 <div class="portal-icon">
                     <i class="fas fa-scroll"></i>
