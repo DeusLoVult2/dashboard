@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        /* ===== BASE STYLES ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Crimson Text', serif;
@@ -22,12 +23,12 @@
             background-image:
                 radial-gradient(ellipse at 30% 20%, rgba(60, 40, 20, 0.25) 0%, transparent 60%),
                 radial-gradient(ellipse at 70% 80%, rgba(60, 40, 20, 0.25) 0%, transparent 60%);
+            overflow: hidden;
         }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #120e0a; }
         ::-webkit-scrollbar-thumb { background: #6b5a45; border-radius: 3px; }
 
-        /* Back link */
         .back-link {
             position: fixed; top: 20px; left: 20px; z-index: 100;
             color: #6b5a45; text-decoration: none; font-size: 14px; letter-spacing: 2px;
@@ -35,210 +36,100 @@
         }
         .back-link:hover { color: #c9a96e; }
 
-        /* Particles */
         #particles-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
         }
 
-        /* Container */
-        .container {
-            position: relative; z-index: 1;
-            width: 100%; max-width: 440px; padding: 20px;
-        }
+        /* ===== CARD STYLES ===== */
+        .container { position: relative; z-index: 1; width: 100%; max-width: 440px; padding: 20px; }
 
         .card {
             background: linear-gradient(145deg, rgba(20, 16, 12, 0.97), rgba(14, 11, 8, 0.97));
             border: 1px solid rgba(107, 90, 69, 0.3);
             border-radius: 16px;
             padding: 45px 35px 35px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(201,169,110,0.03);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
         }
 
-        .card-header {
-            text-align: center; margin-bottom: 30px;
-        }
-        .card-header .icon {
-            font-size: 28px; color: #c9a96e; margin-bottom: 8px;
-        }
-        .card-header h1 {
-            font-family: 'Cinzel', serif; font-size: 22px; color: #c9a96e; letter-spacing: 4px; text-transform: uppercase;
-        }
-        .card-header p {
-            color: #6b5a45; font-style: italic; font-size: 14px; margin-top: 4px;
-        }
+        .card-header { text-align: center; margin-bottom: 30px; }
+        .card-header .icon { font-size: 28px; color: #c9a96e; margin-bottom: 8px; }
+        .card-header h1 { font-family: 'Cinzel', serif; font-size: 22px; color: #c9a96e; letter-spacing: 4px; text-transform: uppercase; }
+        .card-header p { color: #6b5a45; font-style: italic; font-size: 14px; margin-top: 4px; }
         .card-header .enc-badge {
-            display: inline-block; margin-top: 12px;
-            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-            color: #4a7a5a; border: 1px solid rgba(74,122,90,0.3); padding: 4px 14px; border-radius: 20px;
-            font-family: 'Cinzel', serif;
+            display: inline-block; margin-top: 12px; font-size: 10px; letter-spacing: 2px;
+            text-transform: uppercase; color: #4a7a5a; border: 1px solid rgba(74,122,90,0.3);
+            padding: 4px 14px; border-radius: 20px; font-family: 'Cinzel', serif;
         }
-        .card-header .enc-badge i { margin-right: 4px; }
 
-        /* Tabs */
-        .tabs {
-            display: flex; border-bottom: 1px solid rgba(107,90,69,0.2); margin-bottom: 25px;
-        }
+        /* ===== TABS & FORMS ===== */
+        .tabs { display: flex; border-bottom: 1px solid rgba(107,90,69,0.2); margin-bottom: 25px; }
         .tab {
             flex: 1; text-align: center; padding: 10px 0; cursor: pointer;
-            font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-            color: #6b5a45; transition: all 0.3s; border-bottom: 2px solid transparent;
+            font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px;
+            text-transform: uppercase; color: #6b5a45; transition: all 0.3s; border-bottom: 2px solid transparent;
         }
-        .tab:hover { color: #a09080; }
         .tab.active { color: #c9a96e; border-bottom-color: #c9a96e; }
 
-        /* Forms */
         .form-panel { display: none; }
         .form-panel.active { display: block; animation: fadeInUp 0.4s ease forwards; }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .form-group { margin-bottom: 18px; }
-        .form-group label {
-            display: block; font-size: 13px; color: #a09080; margin-bottom: 6px; letter-spacing: 1px;
-        }
-        .form-group .input-wrap {
-            position: relative;
-        }
-        .form-group .input-wrap i {
-            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-            color: #6b5a45; font-size: 14px;
-        }
-        .form-group input {
+        .form-group label { display: block; font-size: 13px; color: #a09080; margin-bottom: 6px; letter-spacing: 1px; }
+        .input-wrap { position: relative; }
+        .input-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #6b5a45; }
+        
+        input {
             width: 100%; padding: 12px 14px 12px 42px;
             background: rgba(10,8,6,0.6); border: 1px solid rgba(107,90,69,0.25);
-            border-radius: 8px; color: #d4c5a9; font-size: 15px;
-            font-family: 'Crimson Text', serif; transition: border-color 0.3s, box-shadow 0.3s;
-            outline: none;
+            border-radius: 8px; color: #d4c5a9; outline: none; transition: 0.3s;
         }
-        .form-group input:focus {
-            border-color: #c9a96e; box-shadow: 0 0 15px rgba(201,169,110,0.08);
-        }
-        .form-group input::placeholder { color: #4a3a2a; font-style: italic; }
+        input:focus { border-color: #c9a96e; box-shadow: 0 0 15px rgba(201,169,110,0.08); }
 
-        .password-strength {
-            height: 3px; background: rgba(107,90,69,0.15); border-radius: 2px; margin-top: 8px; overflow: hidden;
-        }
-        .password-strength .bar {
-            height: 100%; width: 0%; border-radius: 2px; transition: width 0.3s, background 0.3s;
-        }
+        .password-strength { height: 3px; background: rgba(107,90,69,0.15); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .password-strength .bar { height: 100%; width: 0%; transition: 0.3s; }
 
         .btn {
             width: 100%; padding: 13px; border: none; border-radius: 8px;
-            font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
-            cursor: pointer; transition: all 0.3s;
-            background: linear-gradient(135deg, #8b7355, #6b5a45);
-            color: #d4c5a9;
+            font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+            background: linear-gradient(135deg, #8b7355, #6b5a45); color: #d4c5a9;
         }
-        .btn:hover {
-            background: linear-gradient(135deg, #a08060, #7b6a55);
-            box-shadow: 0 5px 20px rgba(107,90,69,0.2);
-            transform: translateY(-1px);
-        }
-        .btn:disabled {
-            opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none;
-        }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 5px 20px rgba(107,90,69,0.2); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
         .security-note {
-            margin-top: 20px; padding: 12px 16px;
-            background: rgba(74,122,90,0.06); border: 1px solid rgba(74,122,90,0.15);
-            border-radius: 8px; font-size: 12px; color: #6b8a6a; line-height: 1.6;
-        }
-        .security-note i { margin-right: 6px; }
-
-        .error-msg {
-            color: #a04040; font-size: 13px; margin-top: 8px; min-height: 20px; text-align: center;
-        }
-        .success-msg {
-            color: #4a8a5a; font-size: 13px; margin-top: 8px; min-height: 20px; text-align: center;
+            margin-top: 20px; padding: 12px 16px; background: rgba(74,122,90,0.06);
+            border: 1px solid rgba(74,122,90,0.15); border-radius: 8px; font-size: 12px;
+            color: #6b8a6a; line-height: 1.6;
         }
 
-        /* Dashboard view (after login) */
+        .error-msg { color: #a04040; font-size: 13px; margin-top: 8px; text-align: center; min-height: 20px; }
+        .success-msg { color: #4a8a5a; font-size: 13px; margin-top: 8px; text-align: center; }
+
+        /* ===== DASHBOARD VIEW ===== */
         .dashboard { display: none; }
         .dashboard.active { display: block; animation: fadeInUp 0.4s ease forwards; }
-        .dashboard .user-info {
-            background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
-            border-radius: 10px; padding: 20px; margin-bottom: 20px;
-        }
-        .dashboard .user-info h3 {
-            font-family: 'Cinzel', serif; font-size: 16px; color: #c9a96e; letter-spacing: 2px; margin-bottom: 8px;
-        }
-        .dashboard .user-info .field {
-            display: flex; justify-content: space-between; padding: 6px 0;
-            border-bottom: 1px solid rgba(107,90,69,0.08);
-            font-size: 14px;
-        }
-        .dashboard .user-info .field:last-child { border-bottom: none; }
-        .dashboard .user-info .field span:first-child { color: #6b5a45; }
-        .dashboard .user-info .field span:last-child { color: #d4c5a9; font-weight: 600; }
-        .dashboard .logout-btn {
-            background: transparent; border: 1px solid rgba(107,90,69,0.3); color: #6b5a45;
-        }
-        .dashboard .logout-btn:hover {
-            border-color: #a04040; color: #a04040;
-        }
+        .user-info { background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+        .user-info .field { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(107,90,69,0.08); font-size: 14px; }
+        .logout-btn { background: transparent; border: 1px solid rgba(107,90,69,0.3); color: #6b5a45; margin-top: 10px; }
+        .logout-btn:hover { border-color: #a04040; color: #a04040; }
 
-        /* Admin panel */
-        .admin-toggle {
-            margin-top: 20px; text-align: center;
-        }
-        .admin-toggle a {
-            color: #4a3a2a; font-size: 11px; cursor: pointer; text-decoration: none; letter-spacing: 1px;
-            font-family: 'Cinzel', serif; transition: color 0.3s;
-        }
-        .admin-toggle a:hover { color: #6b5a45; }
-
-        .admin-panel {
-            display: none; margin-top: 20px;
-            background: rgba(10,8,6,0.6); border: 1px solid rgba(107,90,69,0.15);
-            border-radius: 10px; padding: 20px; max-height: 300px; overflow-y: auto;
-        }
-        .admin-panel.show { display: block; animation: fadeInUp 0.4s ease forwards; }
-        .admin-panel h4 {
-            font-family: 'Cinzel', serif; font-size: 13px; color: #6b5a45; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 12px; text-align: center;
-        }
-        .admin-panel .entry {
-            background: rgba(0,0,0,0.3); border: 1px solid rgba(107,90,69,0.1);
-            border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; font-size: 12px;
-        }
-        .admin-panel .entry .label { color: #5a4a3a; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-        .admin-panel .entry .encrypted-data {
-            font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #4a3a2a;
-            word-break: break-all; margin-top: 4px; line-height: 1.6;
-        }
-        .admin-panel .entry .cipher-badge {
-            display: inline-block; background: rgba(60,40,20,0.3); padding: 2px 8px;
-            border-radius: 4px; font-size: 9px; color: #6b5a45; letter-spacing: 1px;
-            margin-top: 4px;
-        }
-        .admin-panel .empty {
-            text-align: center; color: #4a3a2a; font-style: italic; padding: 20px 0;
-        }
-
-        @media (max-width: 480px) {
-            .card { padding: 30px 20px 25px; }
-        }
-
-        /* Loading spinner */
         .spinner {
-            display: inline-block; width: 16px; height: 16px;
-            border: 2px solid rgba(212,197,169,0.2); border-top-color: #c9a96e;
-            border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px;
-            vertical-align: middle;
+            display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(212,197,169,0.2);
+            border-top-color: #d4c5a9; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        .btn .spinner { border-color: rgba(212,197,169,0.2); border-top-color: #d4c5a9; }
     </style>
 </head>
 <body>
     <canvas id="particles-canvas"></canvas>
-
     <a href="index.html" class="back-link"><i class="fas fa-chevron-left"></i> Back to Nexus</a>
 
     <div class="container">
-        <div class="card" id="app">
-            <!-- === LOGIN/REGISTER VIEW === -->
+        <div class="card">
+            <!-- AUTH VIEW -->
             <div id="authView">
                 <div class="card-header">
                     <div class="icon"><i class="fas fa-shield-halved"></i></div>
@@ -248,622 +139,214 @@
                 </div>
 
                 <div class="tabs">
-                    <div class="tab active" data-tab="login" onclick="switchTab('login')">Sign In</div>
-                    <div class="tab" data-tab="register" onclick="switchTab('register')">Register</div>
+                    <div class="tab active" id="tab-login" onclick="switchTab('login')">Sign In</div>
+                    <div class="tab" id="tab-register" onclick="switchTab('register')">Register</div>
                 </div>
 
-                <!-- Login Panel -->
+                <!-- Login -->
                 <div class="form-panel active" id="loginPanel">
                     <div class="form-group">
-                        <label><i class="fas fa-user"></i> Username</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="loginUser" placeholder="Enter your username..." autocomplete="username">
-                        </div>
+                        <label>Username</label>
+                        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="loginUser" placeholder="Username..."></div>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-key"></i> Password</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-key"></i>
-                            <input type="password" id="loginPass" placeholder="Enter your password..." autocomplete="current-password">
-                        </div>
+                        <label>Password</label>
+                        <div class="input-wrap"><i class="fas fa-key"></i><input type="password" id="loginPass" placeholder="Password..."></div>
                     </div>
                     <div class="error-msg" id="loginError"></div>
-                    <button class="btn" id="loginBtn" onclick="handleLogin()">
-                        <i class="fas fa-unlock"></i> Enter Sanctum
-                    </button>
+                    <button class="btn" id="loginBtn" onclick="handleLogin()">Enter Sanctum</button>
                 </div>
 
-                <!-- Register Panel -->
+                <!-- Register -->
                 <div class="form-panel" id="registerPanel">
                     <div class="form-group">
-                        <label><i class="fas fa-user"></i> Choose Username</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="regUser" placeholder="Pick a unique username..." autocomplete="username">
-                        </div>
+                        <label>Choose Username</label>
+                        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="regUser" placeholder="Username..."></div>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-key"></i> Choose Password</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-key"></i>
-                            <input type="password" id="regPass" placeholder="Create a strong password..." autocomplete="new-password" oninput="checkStrength(this.value)">
-                        </div>
-                        <div class="password-strength">
-                            <div class="bar" id="strengthBar"></div>
-                        </div>
+                        <label>Choose Password</label>
+                        <div class="input-wrap"><i class="fas fa-key"></i><input type="password" id="regPass" placeholder="Password..." oninput="checkStrength(this.value)"></div>
+                        <div class="password-strength"><div class="bar" id="strengthBar"></div></div>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-key"></i> Confirm Password</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-key"></i>
-                            <input type="password" id="regPassConfirm" placeholder="Confirm your password..." autocomplete="new-password">
-                        </div>
+                        <label>Confirm Password</label>
+                        <div class="input-wrap"><i class="fas fa-key"></i><input type="password" id="regPassConfirm" placeholder="Confirm..."></div>
                     </div>
                     <div class="error-msg" id="regError"></div>
                     <div class="success-msg" id="regSuccess"></div>
-                    <button class="btn" id="registerBtn" onclick="handleRegister()">
-                        <i class="fas fa-user-plus"></i> Create Account
-                    </button>
+                    <button class="btn" id="registerBtn" onclick="handleRegister()">Create Account</button>
                 </div>
 
                 <div class="security-note">
-                    <i class="fas fa-shield"></i>
-                    <strong>Zero-Knowledge Architecture:</strong> Your password never leaves this device.
-                    All data is encrypted with AES-256-GCM using a key derived from your password.
-                    Even the "admin" sees only encrypted gibberish — <em>nobody</em> can read your data without your password.
-                </div>
-
-                <div class="admin-toggle">
-                    <a onclick="toggleAdmin()"><i class="fas fa-eye-slash"></i> View Stored Data (Admin Perspective)</a>
-                </div>
-                <div class="admin-panel" id="adminPanel">
-                    <h4><i class="fas fa-database"></i> Encrypted Storage</h4>
-                    <div id="adminEntries">
-                        <div class="empty">No users registered yet.</div>
-                    </div>
+                    <i class="fas fa-shield"></i> <strong>Zero-Knowledge:</strong> Your password never leaves this device. All data is AES-256-GCM encrypted.
                 </div>
             </div>
 
-            <!-- === DASHBOARD VIEW (after login) === -->
+            <!-- DASHBOARD VIEW -->
             <div class="dashboard" id="dashboardView">
                 <div class="card-header">
                     <div class="icon"><i class="fas fa-dragon"></i></div>
                     <h1>Welcome Back</h1>
-                    <p>You have been authenticated</p>
+                    <p>Identity Authenticated</p>
                 </div>
                 <div class="user-info">
-                    <h3><i class="fas fa-id-card"></i> Your Sanctum Profile</h3>
-                    <div class="field">
-                        <span>Username</span>
-                        <span id="dashUser">—</span>
-                    </div>
-                    <div class="field">
-                        <span>User ID</span>
-                        <span id="dashUID">—</span>
-                    </div>
-                    <div class="field">
-                        <span>Encrypted At</span>
-                        <span id="dashDate">—</span>
-                    </div>
-                    <div class="field">
-                        <span>Decryption</span>
-                        <span style="color:#4a8a5a;"><i class="fas fa-check-circle"></i> Verified On-Device</span>
-                    </div>
+                    <div class="field"><span>Username</span><span id="dashUser">—</span></div>
+                    <div class="field"><span>Role</span><span id="dashRole" style="text-transform:uppercase; color:#c9a96e;">—</span></div>
+                    <div class="field"><span>Session</span><span style="color:#4a8a5a;">Active</span></div>
                 </div>
-                <button class="btn logout-btn" onclick="handleLogout()">
-                    <i class="fas fa-sign-out-alt"></i> Leave Sanctum
-                </button>
+                <button class="btn logout-btn" onclick="handleLogout()">Leave Sanctum</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ================================================================
-        // CRYPTOGRAPHIC ENGINE — Zero-Knowledge Encryption
-        // ================================================================
-
         const STORAGE_KEY = 'sanctum_users';
-        const PBKDF2_ITERATIONS = 600000; // OWASP recommended minimum
-        const AES_KEY_LENGTH = 256;
-        const SALT_LENGTH = 32;   // bytes
-        const IV_LENGTH = 12;     // bytes for GCM
+        const SESSION_KEY = 'sanctum_session_persistent';
+        const PBKDF2_ITERATIONS = 600000;
 
-        /**
-         * Derive an AES-GCM key from a password and salt using PBKDF2.
-         * This is the core — without the correct password, you cannot derive
-         * this key, and therefore cannot decrypt the data.
-         */
+        // --- CRYPTO ENGINE ---
         async function deriveKey(password, salt) {
             const enc = new TextEncoder();
-            const keyMaterial = await crypto.subtle.importKey(
-                'raw',
-                enc.encode(password),
-                'PBKDF2',
-                false,
-                ['deriveKey']
-            );
+            const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
             return crypto.subtle.deriveKey(
-                {
-                    name: 'PBKDF2',
-                    salt: salt,
-                    iterations: PBKDF2_ITERATIONS,
-                    hash: 'SHA-256'
-                },
-                keyMaterial,
-                { name: 'AES-GCM', length: AES_KEY_LENGTH },
-                false,
-                ['encrypt', 'decrypt']
+                { name: 'PBKDF2', salt: salt, iterations: PBKDF2_ITERATIONS, hash: 'SHA-256' },
+                keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
             );
         }
 
-        /**
-         * Encrypt plaintext using AES-256-GCM.
-         * Returns an object with iv (Uint8Array) and ciphertext (Uint8Array).
-         */
         async function encryptData(plaintext, password, salt) {
             const key = await deriveKey(password, salt);
-            const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
-            const enc = new TextEncoder();
-            const ciphertext = await crypto.subtle.encrypt(
-                { name: 'AES-GCM', iv: iv },
-                key,
-                enc.encode(plaintext)
-            );
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+            const ciphertext = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, new TextEncoder().encode(plaintext));
             return { iv, ciphertext: new Uint8Array(ciphertext) };
         }
 
-        /**
-         * Decrypt ciphertext using AES-256-GCM.
-         * Returns the plaintext string, or throws if password is wrong.
-         */
         async function decryptData(ciphertext, password, salt, iv) {
             const key = await deriveKey(password, salt);
-            const decrypted = await crypto.subtle.decrypt(
-                { name: 'AES-GCM', iv: iv },
-                key,
-                ciphertext
-            );
+            const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, ciphertext);
             return new TextDecoder().decode(decrypted);
         }
 
-        /**
-         * Convert ArrayBuffer/Uint8Array to base64 string for storage.
-         */
-        function bufferToBase64(buf) {
-            const bytes = new Uint8Array(buf);
-            let binary = '';
-            for (let i = 0; i < bytes.length; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return btoa(binary);
-        }
+        const b64 = {
+            encode: buf => btoa(String.fromCharCode(...new Uint8Array(buf))),
+            decode: str => new Uint8Array(atob(str).split("").map(c => c.charCodeAt(0)))
+        };
 
-        /**
-         * Convert base64 string back to Uint8Array.
-         */
-        function base64ToBuffer(b64) {
-            const binary = atob(b64);
-            const bytes = new Uint8Array(binary.length);
-            for (let i = 0; i < binary.length; i++) {
-                bytes[i] = binary.charCodeAt(i);
-            }
-            return bytes;
-        }
+        // --- LOGIC ---
+        function getStoredUsers() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
 
-        /**
-         * Generate a random hex string for user IDs.
-         */
-        function generateUserID() {
-            const bytes = new Uint8Array(16);
-            crypto.getRandomValues(bytes);
-            return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // ================================================================
-        // STORAGE LAYER
-        // ================================================================
-
-        function getStoredUsers() {
-            try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-            } catch { return {}; }
-        }
-
-        function saveStoredUsers(users) {
+        async function registerUser(username, password) {
+            const users = getStoredUsers();
+            if (users[username.toLowerCase()]) throw new Error('Username taken.');
+            const role = Object.keys(users).length === 0 ? 'admin' : 'user';
+            const payload = JSON.stringify({ username, role, createdAt: new Date().toISOString() });
+            const salt = crypto.getRandomValues(new Uint8Array(32));
+            const { iv, ciphertext } = await encryptData(payload, password, salt);
+            users[username.toLowerCase()] = { salt: b64.encode(salt), iv: b64.encode(iv), data: b64.encode(ciphertext) };
             localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
         }
 
-        /**
-         * Register a new user.
-         * Stores: salt, iv, encrypted payload (all base64).
-         * The payload contains: username, userID, timestamp.
-         * NO plaintext data is ever stored!
-         */
-        async function registerUser(username, password) {
-            const users = getStoredUsers();
-
-            if (users[username.toLowerCase()]) {
-                throw new Error('Username already taken. Choose another.');
-            }
-
-            // Generate a unique user ID
-            const userID = generateUserID();
-            const timestamp = new Date().toISOString();
-
-            // --- TAMBAHKAN LOGIKA INI: ---
-            // Jika database masih kosong (belum ada user), jadikan dia 'admin'.
-            // Jika sudah ada user lain, jadikan dia 'user' biasa.
-            const role = Object.keys(users).length === 0 ? 'admin' : 'user';
-
-            // Masukkan 'role' ke dalam data yang akan di-enkripsi
-            const payload = JSON.stringify({
-                username: username,
-                userID: userID,
-                createdAt: timestamp,
-                role: role // <-- Masuk ke brankas enkripsi
-            });
-
-            // Generate random salt for key derivation
-            const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
-
-            // Encrypt the payload
-            const { iv, ciphertext } = await encryptData(payload, password, salt);
-
-            // Store: ONLY encrypted data, salt, and iv
-            users[username.toLowerCase()] = {
-                salt: bufferToBase64(salt),
-                iv: bufferToBase64(iv),
-                data: bufferToBase64(ciphertext)
-            };
-
-            saveStoredUsers(users);
-            return { userID, timestamp };
-        }
-
-        /**
-         * Authenticate a user by trying to decrypt their stored data.
-         * If decryption succeeds, the password was correct.
-         * If it fails, the password was wrong.
-         */
         async function authenticateUser(username, password) {
             const users = getStoredUsers();
             const record = users[username.toLowerCase()];
-
-            if (!record) {
-                throw new Error('User not found. Check your username or register first.');
-            }
-
+            if (!record) throw new Error('User not found.');
             try {
-                const salt = base64ToBuffer(record.salt);
-                const iv = base64ToBuffer(record.iv);
-                const ciphertext = base64ToBuffer(record.data);
-
-                const plaintext = await decryptData(ciphertext, password, salt, iv);
-                const data = JSON.parse(plaintext);
-
-                // Verify the username matches (integrity check)
-                if (data.username.toLowerCase() !== username.toLowerCase()) {
-                    throw new Error('Data integrity check failed.');
-                }
-
-                return data;
-            } catch (e) {
-                // If decryption throws, the password is wrong OR data is corrupted
-                throw new Error('Invalid password. Access denied.');
-            }
+                const plaintext = await decryptData(b64.decode(record.data), password, b64.decode(record.salt), b64.decode(record.iv));
+                return JSON.parse(plaintext);
+            } catch { throw new Error('Wrong password.'); }
         }
 
-        /**
-         * Get all stored records for "admin" view — these are encrypted blobs.
-         * The admin CANNOT decrypt them without each user's password.
-         */
-        function getAdminView() {
-            const users = getStoredUsers();
-            const entries = [];
-            for (const [userKey, record] of Object.entries(users)) {
-                entries.push({
-                    username: userKey,
-                    salt: record.salt.substring(0, 20) + '...',
-                    iv: record.iv.substring(0, 16) + '...',
-                    encryptedData: record.data.substring(0, 32) + '...',
-                    encryptedFull: record.data,
-                    byteLength: Math.round(base64ToBuffer(record.data).length / 1024 * 10) / 10
-                });
-            }
-            return entries;
-        }
-
-        // ================================================================
-        // UI LOGIC
-        // ================================================================
-
+        // --- UI ---
         function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
-
-            if (tab === 'login') {
-                document.querySelector('[data-tab="login"]').classList.add('active');
-                document.getElementById('loginPanel').classList.add('active');
-            } else {
-                document.querySelector('[data-tab="register"]').classList.add('active');
-                document.getElementById('registerPanel').classList.add('active');
-            }
-
-            // Clear messages
-            document.getElementById('loginError').textContent = '';
-            document.getElementById('regError').textContent = '';
-            document.getElementById('regSuccess').textContent = '';
+            document.getElementById('loginPanel').classList.toggle('active', tab === 'login');
+            document.getElementById('registerPanel').classList.toggle('active', tab === 'register');
+            document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+            document.getElementById('tab-register').classList.toggle('active', tab === 'register');
         }
 
         function checkStrength(val) {
             const bar = document.getElementById('strengthBar');
-            let score = 0;
-            if (val.length >= 8) score += 25;
-            if (val.length >= 12) score += 15;
-            if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score += 20;
-            if (/\d/.test(val)) score += 20;
-            if (/[^a-zA-Z0-9]/.test(val)) score += 20;
-
-            const colors = ['#6b5a45', '#8b7355', '#b8860b', '#4a8a5a', '#2a9a5a'];
-            bar.style.width = Math.min(score, 100) + '%';
-            bar.style.background = colors[Math.min(Math.floor(score / 20), 4)];
+            let s = val.length * 10;
+            bar.style.width = Math.min(s, 100) + '%';
+            bar.style.background = s < 50 ? '#6b5a45' : s < 80 ? '#b8860b' : '#4a8a5a';
         }
 
         async function handleRegister() {
-            const user = document.getElementById('regUser').value.trim();
-            const pass = document.getElementById('regPass').value;
-            const confirm = document.getElementById('regPassConfirm').value;
+            const u = document.getElementById('regUser').value.trim();
+            const p = document.getElementById('regPass').value;
             const btn = document.getElementById('registerBtn');
-            const errorEl = document.getElementById('regError');
-            const successEl = document.getElementById('regSuccess');
-
-            errorEl.textContent = '';
-            successEl.textContent = '';
-
-            // Validation
-            if (!user || !pass || !confirm) {
-                errorEl.textContent = 'All fields are required.';
-                return;
-            }
-            if (user.length < 3) {
-                errorEl.textContent = 'Username must be at least 3 characters.';
-                return;
-            }
-            if (pass.length < 8) {
-                errorEl.textContent = 'Password must be at least 8 characters.';
-                return;
-            }
-            if (pass !== confirm) {
-                errorEl.textContent = 'Passwords do not match.';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Encrypting...';
-
+            if (!u || p.length < 8) { document.getElementById('regError').innerText = "Min 8 chars pass."; return; }
+            btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
             try {
-                const result = await registerUser(user, pass);
-                successEl.innerHTML = '<i class="fas fa-check-circle"></i> Account created! Your data is now encrypted. You can sign in.';
-                document.getElementById('regUser').value = '';
-                document.getElementById('regPass').value = '';
-                document.getElementById('regPassConfirm').value = '';
-                document.getElementById('strengthBar').style.width = '0%';
-                // Switch to login tab after short delay
-                setTimeout(() => {
-                    document.getElementById('loginUser').value = user;
-                    switchTab('login');
-                }, 1500);
-            } catch (e) {
-                errorEl.textContent = e.message;
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
-            }
-            refreshAdminView();
-        }
-
-        // Fungsi pembantu untuk menampilkan Dashboard
-        function showDashboard(data) {
-            document.getElementById('authView').style.display = 'none';
-            document.getElementById('dashboardView').classList.add('active');
-
-            document.getElementById('dashUser').textContent = data.username;
-            document.getElementById('dashUID').textContent = data.userID;
-            document.getElementById('dashDate').textContent = new Date(data.createdAt).toLocaleString();
+                await registerUser(u, p);
+                document.getElementById('regSuccess').innerText = "Created! Redirecting...";
+                setTimeout(() => switchTab('login'), 1500);
+            } catch (e) { document.getElementById('regError').innerText = e.message; }
+            finally { btn.disabled = false; btn.innerHTML = "Create Account"; }
         }
 
         async function handleLogin() {
-            const user = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value;
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value;
             const btn = document.getElementById('loginBtn');
-            const errorEl = document.getElementById('loginError');
-
-            errorEl.textContent = '';
-
-            if (!user || !pass) {
-                errorEl.textContent = 'Please enter your username and password.';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Decrypting...';
-
+            btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
             try {
-                const data = await authenticateUser(user, pass);
-
-                // --- UBAH BAGIAN INI: Simpan Sesi & Waktu Aktif ---
-                const sessionData = {
-                    user: data,
-                    lastActive: Date.now()
-                };
-                localStorage.setItem('sanctum_session_persistent', JSON.stringify(sessionData));
-
-                // Tampilkan Dashboard
+                const data = await authenticateUser(u, p);
+                localStorage.setItem(SESSION_KEY, JSON.stringify({ user: data, lastActive: Date.now() }));
                 showDashboard(data);
-
-                // --- UBAH INI: Mulai detak jantung ---
                 startHeartbeat();
+            } catch (e) { document.getElementById('loginError').innerText = e.message; }
+            finally { btn.disabled = false; btn.innerHTML = "Enter Sanctum"; }
+        }
 
-                document.getElementById('loginUser').value = '';
-                document.getElementById('loginPass').value = '';
-            } catch (e) {
-                errorEl.textContent = e.message;
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-unlock"></i> Enter Sanctum';
-            }
+        function showDashboard(data) {
+            document.getElementById('authView').style.display = 'none';
+            document.getElementById('dashboardView').classList.add('active');
+            document.getElementById('dashUser').innerText = data.username;
+            document.getElementById('dashRole').innerText = data.role;
         }
 
         function handleLogout() {
-            // --- UBAH BARIS INI: Hapus sesi persisten saat logout ---
-            localStorage.removeItem('sanctum_session_persistent');
-
-            document.getElementById('dashboardView').classList.remove('active');
-            document.getElementById('authView').style.display = 'block';
-            document.getElementById('dashUser').textContent = '—';
-            document.getElementById('dashUID').textContent = '—';
-            document.getElementById('dashDate').textContent = '—';
+            localStorage.removeItem(SESSION_KEY);
+            location.reload();
         }
 
-        function toggleAdmin() {
-            const panel = document.getElementById('adminPanel');
-            panel.classList.toggle('show');
-            if (panel.classList.contains('show')) {
-                refreshAdminView();
-            }
+        // --- HEARTBEAT ---
+        function startHeartbeat() {
+            setInterval(() => {
+                const s = JSON.parse(localStorage.getItem(SESSION_KEY));
+                if (s) { s.lastActive = Date.now(); localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+            }, 10000);
         }
 
-        function refreshAdminView() {
-            const container = document.getElementById('adminEntries');
-            const entries = getAdminView();
+        window.addEventListener('load', () => {
+            const s = JSON.parse(localStorage.getItem(SESSION_KEY));
+            if (s && Date.now() - s.lastActive < 60000) {
+                showDashboard(s.user);
+                startHeartbeat();
+            } else { localStorage.removeItem(SESSION_KEY); }
+        });
 
-            if (entries.length === 0) {
-                container.innerHTML = '<div class="empty">No users registered yet.</div>';
-                return;
-            }
-
-            let html = '';
-            for (const entry of entries) {
-                html += `
-                    <div class="entry">
-                        <div class="label"><i class="fas fa-user"></i> User: ${entry.username}</div>
-                        <div class="label" style="margin-top:4px;"><i class="fas fa-lock"></i> Encrypted Data (${entry.byteLength} KB):</div>
-                        <div class="encrypted-data">${entry.encryptedFull}</div>
-                        <div class="cipher-badge"><i class="fas fa-shield"></i> AES-256-GCM + PBKDF2</div>
-                    </div>
-                `;
-            }
-            container.innerHTML = html;
-        }
-
-        // ================================================================
-        // PARTICLES BACKGROUND
-        // ================================================================
-
+        // --- PARTICLES ---
         (function() {
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
             let particles = [];
-
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize); resize();
+            class P {
+                constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.vx = (Math.random()-0.5)*0.2; this.vy = (Math.random()-0.5)*0.2; }
+                update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>canvas.width)this.vx*=-1; if(this.y<0||this.y>canvas.height)this.vy*=-1; }
+                draw() { ctx.beginPath(); ctx.arc(this.x,this.y,1,0,Math.PI*2); ctx.fillStyle="rgba(201,169,110,0.3)"; ctx.fill(); }
             }
-            window.addEventListener('resize', resize);
-            resize();
-
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.2;
-                    this.speedY = (Math.random() - 0.5) * 0.2;
-                    this.opacity = Math.random() * 0.3 + 0.05;
-                }
-                update() {
-                    this.x += this.speedX; this.y += this.speedY;
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(201, 169, 110, ${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-
-            const count = Math.min(50, Math.floor(canvas.width * canvas.height / 18000));
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(let i=0; i<50; i++) particles.push(new P());
+            function anim() {
+                ctx.clearRect(0,0,canvas.width,canvas.height);
                 particles.forEach(p => { p.update(); p.draw(); });
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 150) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(201, 169, 110, ${0.04 * (1 - dist / 150)})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(animate);
+                requestAnimationFrame(anim);
             }
-            animate();
+            anim();
         })();
-
-        // ================================================================
-        // HEARTBEAT SESSION ENGINE (TIDAK LOGOUT SELAMA TAB TERBUKA)
-        // ================================================================
-
-        // Fungsi memperbarui waktu aktivitas terakhir secara instan
-        function updateHeartbeat() {
-            const sessionStr = localStorage.getItem('sanctum_session_persistent');
-            if (sessionStr) {
-                const session = JSON.parse(sessionStr);
-                session.lastActive = Date.now();
-                localStorage.setItem('sanctum_session_persistent', JSON.stringify(session));
-            }
-        }
-
-        // Fungsi untuk terus memompa detak jantung
-        function startHeartbeat() {
-            updateHeartbeat();
-            // Selama tab web terbuka, terus perbarui waktu setiap 10 detik!
-            setInterval(updateHeartbeat, 10000);
-        }
-
-        // DETEKSI KEDALUWARSA SAAT HALAMAN BARU DIBUKA KEMBALI
-        window.addEventListener('load', () => {
-            const sessionStr = localStorage.getItem('sanctum_session_persistent');
-            if (sessionStr) {
-                const session = JSON.parse(sessionStr);
-                const timeDiff = Date.now() - session.lastActive;
-                const oneMinute = 60 * 1000; // 1 Menit (60.000 ms)
-
-                if (timeDiff > oneMinute) {
-                    // JIKA TAB DITUTUP > 1 MENIT: Sesi kedaluwarsa, hapus!
-                    localStorage.removeItem('sanctum_session_persistent');
-                } else {
-                    // JIKA TAB BARU DITUTUP SEBENTAR (< 1 MENIT): Lanjutkan Sesi!
-                    showDashboard(session.user);
-                    startHeartbeat();
-                }
-            }
-        });
-
-        // Refresh admin view on load in case there are existing users
-        refreshAdminView();
     </script>
 </body>
 </html>
