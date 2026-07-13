@@ -491,11 +491,17 @@
             const userID = generateUserID();
             const timestamp = new Date().toISOString();
 
-            // The data to encrypt — includes the username itself!
+            // --- TAMBAHKAN LOGIKA INI: ---
+            // Jika database masih kosong (belum ada user), jadikan dia 'admin'.
+            // Jika sudah ada user lain, jadikan dia 'user' biasa.
+            const role = Object.keys(users).length === 0 ? 'admin' : 'user';
+
+            // Masukkan 'role' ke dalam data yang akan di-enkripsi
             const payload = JSON.stringify({
                 username: username,
                 userID: userID,
-                createdAt: timestamp
+                createdAt: timestamp,
+                role: role // <-- Masuk ke brankas enkripsi
             });
 
             // Generate random salt for key derivation
@@ -696,8 +702,8 @@
                 // Tampilkan Dashboard
                 showDashboard(data);
 
-                // Aktifkan pemantauan gerakan user saat ini
-                activateActivityTracker();
+                // --- UBAH INI: Mulai detak jantung ---
+                startHeartbeat();
 
                 document.getElementById('loginUser').value = '';
                 document.getElementById('loginPass').value = '';
@@ -817,11 +823,11 @@
         })();
 
         // ================================================================
-        // IDLE SESSION TIMEOUT ENGINE (1 MENIT EXPIRE)
+        // HEARTBEAT SESSION ENGINE (TIDAK LOGOUT SELAMA TAB TERBUKA)
         // ================================================================
 
-        // Fungsi memperbarui waktu aktivitas terakhir ke memori
-        function updateActivity() {
+        // Fungsi memperbarui waktu aktivitas terakhir secara instan
+        function updateHeartbeat() {
             const sessionStr = localStorage.getItem('sanctum_session_persistent');
             if (sessionStr) {
                 const session = JSON.parse(sessionStr);
@@ -830,43 +836,28 @@
             }
         }
 
-        // Batasi pembaruan waktu aktivitas (maksimal sekali setiap 5 detik) agar browser tidak lambat
-        let lastUpdate = 0;
-        function throttledUpdate() {
-            const now = Date.now();
-            if (now - lastUpdate > 5000) {
-                updateActivity();
-                lastUpdate = now;
-            }
+        // Fungsi untuk terus memompa detak jantung
+        function startHeartbeat() {
+            updateHeartbeat();
+            // Selama tab web terbuka, terus perbarui waktu setiap 10 detik!
+            setInterval(updateHeartbeat, 10000);
         }
 
-        // Daftarkan aksi sensor aktivitas pengguna
-        function activateActivityTracker() {
-            window.addEventListener('mousemove', throttledUpdate);
-            window.addEventListener('keypress', throttledUpdate);
-            window.addEventListener('click', throttledUpdate);
-            window.addEventListener('scroll', throttledUpdate);
-        }
-
-        // DETEKSI AUTO-LOGIN / TIMEOUT SAAT HALAMAN DIBUKA
+        // DETEKSI KEDALUWARSA SAAT HALAMAN BARU DIBUKA KEMBALI
         window.addEventListener('load', () => {
             const sessionStr = localStorage.getItem('sanctum_session_persistent');
             if (sessionStr) {
                 const session = JSON.parse(sessionStr);
                 const timeDiff = Date.now() - session.lastActive;
-                const oneMinute = 60 * 1000; // 60.000 milidetik (1 Menit)
+                const oneMinute = 60 * 1000; // 1 Menit (60.000 ms)
 
                 if (timeDiff > oneMinute) {
-                    // JIKA LEBIH DARI 1 MENIT: Sesi kedaluwarsa, hapus data sesi
+                    // JIKA TAB DITUTUP > 1 MENIT: Sesi kedaluwarsa, hapus!
                     localStorage.removeItem('sanctum_session_persistent');
-                    // Tampilan tetap di halaman login
                 } else {
-                    // JIKA KURANG DARI 1 MENIT: Otomatis login kembali & perbarui waktu aktif
-                    session.lastActive = Date.now();
-                    localStorage.setItem('sanctum_session_persistent', JSON.stringify(session));
-                    
+                    // JIKA TAB BARU DITUTUP SEBENTAR (< 1 MENIT): Lanjutkan Sesi!
                     showDashboard(session.user);
-                    activateActivityTracker();
+                    startHeartbeat();
                 }
             }
         });

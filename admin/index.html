@@ -149,25 +149,51 @@
         // SISTEM PROTEKSI HALAMAN & RENDER DATA
         // ==========================================
 
+        // 1. Fungsi detak jantung khusus halaman Admin (Terpisah di luar agar rapi)
+        function updateHeartbeat() {
+            const sessionStr = localStorage.getItem('sanctum_session_persistent');
+            if (sessionStr) {
+                const session = JSON.parse(sessionStr);
+                session.lastActive = Date.now();
+                localStorage.setItem('sanctum_session_persistent', JSON.stringify(session));
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('page-loader');
             const content = document.getElementById('admin-content');
 
-            // 1. Cek apakah ada Sesi Login yang Aktif
-            const activeSession = localStorage.getItem('sanctum_session_persistent');
+            // 2. Cek apakah ada Sesi Login yang Aktif
+            const activeSessionStr = localStorage.getItem('sanctum_session_persistent');
             
             setTimeout(() => {
-                if (!activeSession) {
-                    // Jika tidak ada sesi (belum login), tendang kembali ke login.html
+                if (!activeSessionStr) {
+                    // Jika belum login sama sekali, tendang ke login.html
                     alert("ACCESS DENIED: You must authenticate in The Sanctum first.");
                     window.location.href = '../login.html'; 
-                } else {
-                    // Jika sudah login, izinkan masuk dan muat data
-                    loader.style.display = 'none';
-                    content.style.display = 'block';
-                    loadAdminData();
+                    return;
                 }
-            }, 1000); // Simulasi delay pengecekan biar keren
+                
+                // Decode data sesi login
+                const session = JSON.parse(activeSessionStr);
+
+                // 3. Proteksi Hak Akses Admin
+                if (session.user.role !== 'admin') {
+                    alert("ACCESS DENIED: Only the Arch-Admin (The High Council) can enter this vault.");
+                    window.location.href = '../index.html'; // Usir ke halaman utama
+                    return;
+                }
+
+                // Jika lolos verifikasi sebagai Admin
+                loader.style.display = 'none';
+                content.style.display = 'block';
+                loadAdminData();
+
+                // Jaga sesi agar tetap hidup selama sedang membuka halaman Admin
+                updateHeartbeat();
+                setInterval(updateHeartbeat, 10000);
+
+            }, 1000); // Delay pemuatan visual
         });
 
         // 2. Fungsi Memuat Data dari Database Lokal Browser
